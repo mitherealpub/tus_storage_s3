@@ -10,7 +10,7 @@ defmodule Tus.Storage.S3.MixProject do
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
       description:
-        "Amazon S3 (or compatible) storage backend for the Tus server (https://hex.pm/packages/tus)",
+        "Amazon S3 (or compatible) storage backend for the Tus server",
       deps: deps(),
       package: package(),
       dialyzer: [ignore_warnings: "dialyzer.ignore-warnings"]
@@ -36,12 +36,22 @@ defmodule Tus.Storage.S3.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:tus, "~> 0.1.2"},
-      {:ex_aws, "~> 2.0"},
-      {:ex_aws_s3, "~> 2.0"},
-      {:hackney, "~> 1.9"},
-      {:sweet_xml, "~> 0.6"},
-      {:ex_doc, ">= 0.0.0", only: :dev}
+      {:tus, "~> 0.1.3"},
+      {:ex_aws, "~> 2.5"},
+      {:ex_aws_s3, "~> 2.5"},
+      {:telemetry, "~> 1.2"},
+      # Optional HTTP/XML dependencies used by ExAws in tests or standalone runs
+      {:hackney, "~> 1.20", optional: true},
+      {:sweet_xml, "~> 0.7", optional: true},
+      {:ex_doc, "~> 0.34", only: :dev, runtime: false}
+    ]
+  end
+
+    defp docs do
+    [
+      main: "Tus.Storage.S3",
+      source_url: @source_url,
+      extras: ["README.md"]
     ]
   end
 end
